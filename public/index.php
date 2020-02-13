@@ -15,8 +15,8 @@ $app->get('/', function (Request $request, Response $response, array $args){
     return $response;
 });
 
-$app->get('/user/add', \App\Controllers\User\Action\Add::class);
-$app->get('/user/delete', \App\Controllers\User\Action\Delete::class);
-$app->get('/user/show', \App\Controllers\User\Action\Show::class);
+$app->get('/user/add', App\Controllers\User\Actions\Add::class);
+$app->get('/user/delete', App\Controllers\User\Actions\Delete::class);
+$app->get('/user/show', App\Controllers\User\Actions\Show::class);
 
 $app->run();
