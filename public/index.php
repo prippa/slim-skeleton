@@ -1,22 +1,31 @@
 <?php
 
+use DI\Container;
 use Slim\Factory\AppFactory;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
-require __DIR__ . '/../vendor/autoload.php';
+define('ROOT', dirname(__DIR__) . '/');
 
+require ROOT . 'vendor/autoload.php';
+
+$container = new Container();
+
+$settings = require ROOT . 'config/settings.php';
+$settings($container);
+
+// Set Container on app
+AppFactory::setContainer($container);
+
+// Create App
 $app = AppFactory::create();
 
-$app->addErrorMiddleware(true, true, true);
+$views = require ROOT . 'config/views.php';
+$views($app);
 
-$app->get('/', function (Request $request, Response $response, array $args){
-    $response->getBody()->write('Index');
-    return $response;
-});
+$middleware = require ROOT . 'config/middleware.php';
+$middleware($app);
 
-$app->get('/user/add', App\Controllers\User\Actions\Add::class);
-$app->get('/user/delete', App\Controllers\User\Actions\Delete::class);
-$app->get('/user/show', App\Controllers\User\Actions\Show::class);
+$routes = require ROOT . 'config/routes.php';
+$routes($app);
 
+// Run App
 $app->run();

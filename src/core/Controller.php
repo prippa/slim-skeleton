@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace app\core;
 
+use Psr\Container\ContainerInterface as Container;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -22,9 +23,14 @@ abstract class Controller
      */
     protected $args;
 
-    public function __construct()
-    {
+    /**
+     * @var Container
+     */
+    private $container;
 
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
     }
 
     public function __invoke(Request $request, Response $response, array $args)
@@ -37,4 +43,11 @@ abstract class Controller
     }
 
     abstract protected function action(): Response;
+
+    protected function view(string $path, array $data = []): Response
+    {
+        $view = new View($this->container->get('view'));
+
+        return $view->render($this->response, $path, $data);
+    }
 }

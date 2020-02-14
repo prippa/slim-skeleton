@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers\User;
+namespace app\controllers\user;
 
-use App\Controllers\Controller;
+use app\core\Controller;
 
 abstract class UserController extends Controller
 {

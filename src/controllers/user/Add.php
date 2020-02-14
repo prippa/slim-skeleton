@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Controllers\User\Actions;
+namespace app\controllers\user;
 
-use App\Controllers\User\UserController;
+use app\models\User;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class Add extends UserController
 {
     protected function action(): Response
     {
-        $this->forAllUserControllers();
-        echo 'User Add';
+        User::add($this->args['name']);
         return $this->response;
     }
 }

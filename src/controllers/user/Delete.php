@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Controllers\User\Actions;
+namespace app\controllers\user;
 
-use App\Controllers\User\UserController;
+use app\models\User;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class Delete extends UserController
 {
     protected function action(): Response
     {
-        $this->forAllUserControllers();
-        echo 'User Delete';
+        User::delete($this->args['id']);
         return $this->response;
     }
 }
