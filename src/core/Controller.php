@@ -28,9 +28,16 @@ abstract class Controller
      */
     private $container;
 
+    /**
+     * @var DB
+     */
+    protected $db;
+
     public function __construct(Container $container)
     {
         $this->container = $container;
+
+        $this->db = $this->container->get('db');
     }
 
     public function __invoke(Request $request, Response $response, array $args)

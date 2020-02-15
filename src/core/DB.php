@@ -3,7 +3,6 @@
 namespace app\core;
 
 use PDO;
-use PDOException;
 use PDOStatement;
 
 /**
@@ -31,11 +30,7 @@ class DB
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ];
 
-        try {
-            $this->db = new PDO($dsn, $user, $pass, $options);
-        } catch (PDOException $e) {
-            echo 'Connection failed: ' . $e->getMessage();
-        }
+        $this->db = new PDO($dsn, $user, $pass, $options);
     }
 
     /**

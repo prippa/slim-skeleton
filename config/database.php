@@ -1,8 +1,17 @@
 <?php
 
-return [
-    'dbname' => 'test_db',
-    'host' => '127.0.0.1',
-    'user' => 'test',
-    'pass' => 'test',
-];
+use app\core\DB;
+use DI\Container;
+
+return function (Container $container) {
+    $container->set('db', function() use ($container) {
+        $settings = $container->get('settings')['database'];
+
+        return new DB(
+            $settings['dbname'],
+            $settings['host'],
+            $settings['user'],
+            $settings['pass']
+        );
+    });
+};

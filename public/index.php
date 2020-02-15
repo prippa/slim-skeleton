@@ -12,6 +12,9 @@ $container = new Container();
 $settings = require ROOT . 'config/settings.php';
 $settings($container);
 
+$settings = require ROOT . 'config/database.php';
+$settings($container);
+
 // Set Container on app
 AppFactory::setContainer($container);
 

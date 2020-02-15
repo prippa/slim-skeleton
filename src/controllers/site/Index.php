@@ -8,6 +8,7 @@ class Index extends SiteController
 {
     protected function action(): Response
     {
-        return $this->view('index', ['name' => 'Pavel']);
+        $users = $this->db->selectRows('test');
+        return $this->view('index', ['title' => 'Home Page', 'users' => $users]);
     }
 }
