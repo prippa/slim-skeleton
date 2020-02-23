@@ -1,0 +1,33 @@
+.col-radius-form {
+    background-color: unset;
+    border-radius: 6px;
+    border: 1px solid #919191;
+    padding: 20px;
+    max-width: 400px;
+}
+
+.message-box {
+    display: flex;
+    justify-content: center;
+    word-break: break-word;
+}
+
+.error-list {
+    border-radius: 12px;
+    border: 1px solid red;
+}
+
+.error-item {
+    color: red;
+    margin-right: 20px;
+}
+
+.success-list {
+    border-radius: 12px;
+    border: 1px solid green;
+}
+
+.success-item {
+    color: green;
+    margin-right: 20px;
+}

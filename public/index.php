@@ -9,11 +9,11 @@ require ROOT . 'vendor/autoload.php';
 
 $container = new Container();
 
-$settings = require ROOT . 'config/settings.php';
+$settings = require ROOT . 'app/container/settings.php';
 $settings($container);
 
-$settings = require ROOT . 'config/database.php';
-$settings($container);
+$database = require ROOT . 'app/container/database_connection.php';
+$database($container);
 
 // Set Container on app
 AppFactory::setContainer($container);
@@ -21,13 +21,13 @@ AppFactory::setContainer($container);
 // Create App
 $app = AppFactory::create();
 
-$views = require ROOT . 'config/views.php';
+$views = require ROOT . 'app/views.php';
 $views($app);
 
-$middleware = require ROOT . 'config/middleware.php';
+$middleware = require ROOT . 'app/middleware.php';
 $middleware($app);
 
-$routes = require ROOT . 'config/routes.php';
+$routes = require ROOT . 'app/routes.php';
 $routes($app);
 
 // Run App

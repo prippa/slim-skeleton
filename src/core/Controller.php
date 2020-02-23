@@ -2,59 +2,47 @@
 
 namespace app\core;
 
-use Psr\Container\ContainerInterface as Container;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Container\ContainerInterface;
 
 abstract class Controller
 {
     /**
-     * @var Request
+     * @var ContainerInterface
      */
-    protected $request;
-
-    /**
-     * @var Response
-     */
-    protected $response;
-
-    /**
-     * @var array
-     */
-    protected $args;
-
-    /**
-     * @var Container
-     */
-    private $container;
+    protected $container;
 
     /**
      * @var DB
      */
-    protected $db;
+    private $db;
 
-    public function __construct(Container $container)
+    /**
+     * @var View
+     */
+    private $view;
+
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-
-        $this->db = $this->container->get('db');
+        $this->db = null;
+        $this->view = null;
     }
 
-    public function __invoke(Request $request, Response $response, array $args)
+    protected function db(): DB
     {
-        $this->request = $request;
-        $this->response = $response;
-        $this->args = $args;
+        if (!$this->db) {
+            $this->db = $this->container->get('database_connection');
+        }
 
-        return $this->action();
+        return $this->db;
     }
 
-    abstract protected function action(): Response;
-
-    protected function view(string $path, array $data = []): Response
+    protected function view(): View
     {
-        $view = new View($this->container->get('view'));
+        if (!$this->view) {
+            $this->view = new View($this->container->get('view'));
+        }
 
-        return $view->render($this->response, $path, $data);
+        return $this->view;
     }
 }

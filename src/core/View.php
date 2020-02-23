@@ -8,14 +8,14 @@ use Slim\Views\Twig;
 class View
 {
     /**
-     * @var string
+     * @var array
      */
-    private $filePostfix;
+    private $success = [];
 
     /**
-     * @var string
+     * @var array
      */
-    private $lang;
+    private $errors = [];
 
     /**
      * @var Twig
@@ -24,40 +24,23 @@ class View
 
     public function __construct(Twig $view)
     {
-        $this->filePostfix = '.twig';
-        $this->lang = 'en';
-
         $this->view = $view;
     }
 
-    public function setLang(string $lang): void { $this->lang = $lang; }
-    public function setFilePostfix(string $filePostfix): void { $this->filePostfix = $filePostfix; }
-
-    private function getTitleByFilename($path): string
-    {
-        $title = strrchr($path, "/");
-        if (!$title) {
-            $title = $path;
-        } else {
-            $title = substr($title, 1);
-        }
-        $title = ucfirst(str_replace('_', ' ', $title));
-
-        return $title;
-    }
+    public function setSuccess(string $success_message): void { $this->success[] = $success_message; }
+    public function setError(string $error_message): void { $this->errors[] = $error_message; }
 
     private function setDefaultData(array &$data, string $path): void
     {
-        if (!isset($data['title'])) {
-            $data['title'] = $this->getTitleByFilename($path);
-        }
-        $data['lang'] = $this->lang;
+        $data['path'] = $path;
+        $data['success'] = $this->success;
+        $data['errors'] = $this->errors;
     }
 
     public function render(Response $response, string $path, array $data = []): Response
     {
         $this->setDefaultData($data, $path);
-        $path .= $this->filePostfix;
+        $path .= '.twig';
 
         return $this->view->render($response, $path, $data);
     }

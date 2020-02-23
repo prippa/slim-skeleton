@@ -2,7 +2,6 @@
 
 use Slim\App;
 use Slim\Views\Twig;
-use Slim\Views\TwigMiddleware;
 use Twig\Loader\FilesystemLoader;
 
 return function (App $app)
@@ -15,10 +14,5 @@ return function (App $app)
         $loader = new FilesystemLoader($settings['path']);
 
         return new Twig($loader, $settings['settings']);
-    });
-
-    $container->set('viewMiddleware', function() use ($app, $container)
-    {
-        return new TwigMiddleware($container->get('view'), $app->getRouteCollector()->getRouteParser());
     });
 };

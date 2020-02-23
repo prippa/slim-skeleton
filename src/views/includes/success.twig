@@ -1,0 +1,9 @@
+{% if success is not empty %}
+    <div class="message-box">
+        <ul class="success-list">
+            {% for item in success %}
+                <li class="success-item">{{ item | raw }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

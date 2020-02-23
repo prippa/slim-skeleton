@@ -1,2 +1,2 @@
 # slim-skeleton
-Slim 4 MVC Skeleton
+Slim 4 Skeleton

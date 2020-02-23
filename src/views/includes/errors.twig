@@ -1,0 +1,9 @@
+{% if errors is not empty %}
+    <div class="message-box">
+        <ul class="error-list">
+            {% for item in errors %}
+                <li class="error-item">{{ item | raw }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

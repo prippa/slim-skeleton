@@ -7,7 +7,6 @@ return function (Container $container)
     $container->set('settings', function ()
     {
         return [
-            'name' => 'Slim 4 MVC Skeleton',
             'displayErrorDetails' => true, // Set to false in production
             'logErrorDetails' => true,
             'logErrors' => true,
@@ -18,11 +17,11 @@ return function (Container $container)
                 ],
             ],
             'database' => [
-                'dbname' => 'test',
+                'dbname' => 'db',
                 'host' => '127.0.0.1',
                 'user' => 'root',
-                'pass' => '123123123',
-            ]
+                'password' => 'root',
+            ],
         ];
     });
 };

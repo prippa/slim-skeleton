@@ -1,0 +1,36 @@
+{% extends 'layouts/default.twig' %}
+{% block title %}Add User{% endblock %}
+{% block styles %}
+    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-12 text-center">
+                <h1>Добавить Пользователя</h1>
+            </div>
+            <div class="col-12 col-radius-form">
+
+                {% include 'includes/success.twig' %}
+                {% include 'includes/errors.twig' %}
+
+                <form action="/add" method="post">
+                    <div class="form-row">
+
+                        <div class="form-group col-12">
+                            <label for="name-field">Имя</label>
+                            <input type="text" class="form-control" id="name-field"
+                                   name="name" required tabindex="1">
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" tabindex="2" id="form-submit-btn">
+                        Добавить ✅
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
