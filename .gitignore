@@ -5,3 +5,4 @@ composer.phar
 var/cache/
 .idea
 app/container/settings.php
+*.DS_Store
